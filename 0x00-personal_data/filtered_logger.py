@@ -20,6 +20,6 @@ class RedactingFormatter(logging.Formatter):
 def filter_datum(fields, redaction, message, separator):
     """Returns the log message obfuscated"""
     for i in fields:
-        msg = re.sub(f'{i}=.*?{separator}',
+        message = re.sub(f'{i}=.*?{separator}',
                      f'{i}={redaction}{separator}', message)
-    return msg
+    return message
