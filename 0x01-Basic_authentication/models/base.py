@@ -123,8 +123,7 @@ class Base():
 
     @classmethod
     def search(cls, attributes: dict = {}) -> List[TypeVar('Base')]:
-        """ Search all objects with matching attributes
-        """
+        """ Search all objects with matching attributes"""
         s_class = cls.__name__
 
         def _search(obj):
