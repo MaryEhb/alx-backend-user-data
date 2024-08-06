@@ -28,11 +28,6 @@ def stats() -> str:
 
 @app_views.route('/unauthorized/', strict_slashes=False)
 def unauth():
-<<<<<<< HEAD
-    """Route: GET /api/v1/unauthorized
-    This endpoint must raise a 401 error by using abort"""
-=======
     """GET /api/v1/unauthorized
     his endpoint must raise a 401 error by using abort"""
->>>>>>> 856080fc9e72804f30f2a469f7cba1d9f798b90c
     abort(401)
