@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """DB module
 """
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, tuple_
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.exc import NoResultFound
 
 from user import Base, User
 
@@ -39,4 +41,22 @@ class DB:
         except Exception:
             session.rollback()
             return None
+        return user
+
+    def find_user_by(self, **kwargs) -> User:
+        """takes in arbitrary keyword arguments andreturns the first
+        row found in the users table as filtered by the method’s
+        input arguments."""
+
+        atts, vals = [], []
+        for att, val in kwargs.items():
+            if not hasattr(User, att):
+                raise InvalidRequestError()
+            atts.append(getattr(User, att))
+            vals.append(val)
+
+        filter_tuple = tuple_(*atts).in_([tuple(vals)])
+        user = self._session.query(User).filter(filter_tuple).first()
+        if not user:
+            raise NoResultFound()
         return user
