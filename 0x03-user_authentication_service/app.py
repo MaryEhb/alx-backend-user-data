@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+""" flask server """
 
 from flask import Flask, jsonify
 
@@ -7,6 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    """index route"""
     return jsonify({"message": "Bienvenue"})
 
 
